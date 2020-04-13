@@ -50,6 +50,11 @@ func resourcePredicate() *schema.Resource {
 				Required: false,
 				Optional: true,
 			},
+			"reverse": {
+				Type:     schema.TypeBool,
+				Required: false,
+				Optional: true,
+			},
 		},
 	}
 }

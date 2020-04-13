@@ -8,7 +8,7 @@ type (
 			Name      string `json:"predicate"`
 			Type      string
 			Index     bool
-			Reverse   string
+			Reverse   bool
 			Tokenizer []string
 			List      bool
 			Count     bool

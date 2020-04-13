@@ -47,8 +47,13 @@ func Create(d *schema.ResourceData, m interface{}) error {
 		predicateTokenizer = ""
 	}
 
+	predicateReverse := ""
+	if d.Get("reverse").(bool) {
+		predicateReverse = "@reverse"
+	}
+
 	err = client.Alter(context.Background(), &api.Operation{
-		Schema: fmt.Sprintf("%s: %s %s %s %s .", predicateName, predicateType, predicateTokenizer, predicateLang, predicateCount),
+		Schema: fmt.Sprintf("%s: %s %s %s %s %s .", predicateName, predicateType, predicateTokenizer, predicateLang, predicateCount, predicateReverse),
 	})
 
 	if err != nil {
