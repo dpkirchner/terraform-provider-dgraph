@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/dgraph-io/dgo/v2"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"livingit.de/code/tf-dgraph/resources"
 	"livingit.de/code/tf-dgraph/resources/predicate"
 )
 
@@ -10,10 +11,10 @@ var client *dgo.Dgraph
 
 func resourcePredicate() *schema.Resource {
 	return &schema.Resource{
-		Create: predicate.Create,
+		Create: resources.Retry(predicate.Create),
 		Read:   predicate.Read,
-		Update: predicate.Update,
-		Delete: predicate.Delete,
+		Update: resources.Retry(predicate.Update),
+		Delete: resources.Retry(predicate.Delete),
 
 		Schema: map[string]*schema.Schema{
 			"name": {
