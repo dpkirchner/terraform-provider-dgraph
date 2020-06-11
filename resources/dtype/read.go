@@ -65,7 +65,9 @@ func adjustForChanges(d *schema.ResourceData, data resources.ResourceTypeData, c
 			if err != nil {
 				return nil, err
 			}
-			fields[v.Name] = t
+			if t != "" {
+				fields[v.Name] = t
+			}
 		}
 	}
 	for k := range fields {
@@ -94,6 +96,9 @@ func getPredicateType(predicateName string, client *dgo.Dgraph) (string, error) 
 	data, err := predicate.GetPredicate(predicateName, client)
 	if err != nil {
 		return "", err
+	}
+	if len(data.Schema) == 0 {
+		return "", nil
 	}
 	return data.Schema[0].Type, nil
 }
