@@ -85,7 +85,9 @@ func adjustForChanges(d *schema.ResourceData, data resources.ResourceTypeData, c
 			if err != nil {
 				return nil, err
 			}
-			fields[n] = t
+			if t != "" {
+				fields[n] = t
+			}
 		}
 	}
 	return fields, nil

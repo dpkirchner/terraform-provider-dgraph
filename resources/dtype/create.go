@@ -27,7 +27,12 @@ func Create(d *schema.ResourceData, m interface{}) error {
 		if fieldList == "" {
 			prefix = ""
 		}
-		fieldList = fmt.Sprintf("%s%s  %s: %s", fieldList, prefix, k, v.(string))
+		// Inverse predicates need to be wrapped here
+		if k[:1] == "~" {
+			fieldList = fmt.Sprintf("%s%s  <%s>: %s", fieldList, prefix, k, v.(string))
+		} else {
+			fieldList = fmt.Sprintf("%s%s  %s: %s", fieldList, prefix, k, v.(string))
+		}
 	}
 	typeDefinition := fmt.Sprintf("type %s {\n%s\n}", typeName, fieldList)
 
