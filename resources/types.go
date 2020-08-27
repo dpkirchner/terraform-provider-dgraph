@@ -12,7 +12,7 @@ type (
 			Tokenizer []string
 			List      bool
 			Count     bool
-			Upsert    string
+			Upsert    bool
 			Lang      bool
 		}
 	}
